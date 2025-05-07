@@ -18,6 +18,18 @@ export function Bookings() {
     navigation.navigate('Bookings1');
   };
 
+  const data = [
+    {
+      title: "Ramky One Odyssey",
+      subtitle: "2 BHK, Flat",
+      img1: require("../../assets/icons/ArrowRight.png")
+    },
+    {
+      title: "Ramky One Orion",
+      subtitle: "2 BHK, Flat",
+      img2: require("../../assets/images/1building.png")
+    },
+  ]
   return (
     <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -44,45 +56,29 @@ export function Bookings() {
 
         <Text style={styles.book}>Bookings</Text>
 
-        <View style={styles.card}>
-          <Image
-            source={require('../../assets/images/1building.png')}
-            style={styles.buildingImage}
-          />
-          <Text style={styles.title}>Ramky One Odyssey</Text>
-          <Text style={styles.subtitle}>2 BHK, Flat</Text>
-          <View style={styles.buttonRow}>
-            <TouchableOpacity
-              style={styles.curvedButton1}
-              onPress={handleViewMore}
-            >
+        {data.map((ele, index) => {
+          return (
+            <View style={styles.card}>
               <Image
-                source={require('../../assets/icons/ArrowRight.png')}
-                style={styles.arrow}
+                source={ele.img1}
+                style={styles.buildingImage}
               />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.card}>
-          <Image
-            source={require('../../assets/images/2building.png')}
-            style={styles.buildingImage}
-          />
-          <Text style={styles.title}>Ramky One Orion</Text>
-          <Text style={styles.subtitle}>2 BHK, Flat</Text>
-          <View style={styles.buttonRow}>
-            <TouchableOpacity
-              style={styles.curvedButton1}
-              onPress={handleViewMore}
-            >
-              <Image
-                source={require('../../assets/icons/ArrowRight.png')}
-                style={styles.arrow}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
+              <Text style={styles.title}>{ele.title}</Text>
+              <Text style={styles.subtitle}>{ele.subtitle}</Text>
+              <View style={styles.buttonRow}>
+                <TouchableOpacity
+                  style={styles.curvedButton1}
+                  onPress={handleViewMore}
+                >
+                  <Image
+                    source={ele.img2}
+                    style={styles.arrow}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        })}
       </ScrollView>
 
 
@@ -188,13 +184,13 @@ const styles = StyleSheet.create({
   image2: {
     width: 30,
     height: 30,
-    tintColor:'black',
+    tintColor: 'black',
     marginLeft: 90
   },
   image3: {
     width: 30,
     height: 30,
-    tintColor:'black'
+    tintColor: 'black'
   },
   book: {
     fontSize: 24,
@@ -241,7 +237,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   arrow: {
-    marginTop:-10,
+    marginTop: -10,
     width: 35,
     height: 35,
   },
