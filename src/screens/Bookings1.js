@@ -45,6 +45,10 @@ export function Bookings1() {
     }
   };
 
+  const data = [
+    {}
+  ]
+
   return (
     <View style={styles.wrapper}>
       <Animated.View style={styles.container}>
