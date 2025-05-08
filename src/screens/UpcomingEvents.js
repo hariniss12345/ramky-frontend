@@ -15,56 +15,72 @@ export function UpcomingEvents() {
         setIsRegistered(true);
     };
 
+    const data = [
+        {
+            title: 'Real Estate Summit...',
+            description: 'Join top industry experts for insights on the latest trends.',
+            img: require('../../assets/images/image.png'),
+            img1: require('../../assets/icons/date.png'),
+            img2:require('../../assets/icons/loc.png'),
+            date: 'March 15, 2025 10:00 AM - 3:00 PM',
+            location: 'Hi-Tech City - Hyderabad',
+        },
+        {
+            img2: require('../../assets/icons/calendar1.gif'),
+            title1: 'Registration Complete',
+            message: 'Congratulations! You are registered for the event. Please find the event details on your registered email ID.'
+        }
+    ];
+
     return (
         <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
-             <ScrollView style={commonStyles.scrollContent}>
+            <ScrollView style={commonStyles.scrollContent}>
                 <Header navigation={navigation} />
-                <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20, marginBottom: 30,marginLeft:10}}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20, marginBottom: 30, marginLeft: 10 }}>
                     Upcoming Events
                 </Text>
-                <View style={styles.card}>
-                    <View style={styles.cardContent}>
-                        <Image source={require('../../assets/images/image.png')} style={styles.cardImage} />
-                        <View style={styles.cardTextContainer}>
-                            <Text style={styles.cardTitle}>Real Estate Summit...</Text>
-                            <Text style={styles.cardDescription}>Join top industry experts for insights on the latest trends.</Text>
+
+                {data.slice(0, 1).map((ele, index) => (
+                    <View key={index} style={styles.card}>
+                        <View style={styles.cardContent}>
+                            <Image source={ele.img} style={styles.cardImage} />
+                            <View style={styles.cardTextContainer}>
+                                <Text style={styles.cardTitle}>{ele.title}</Text>
+                                <Text style={styles.cardDescription}>{ele.description}</Text>
+                            </View>
                         </View>
+
+                        <View style={styles.cardDetails}>
+                            <Image source={ele.img1} style={styles.icon} />
+                            <Text style={styles.cardDate}>{ele.date}</Text>
+                        </View>
+
+                        <View style={styles.cardDetails}>
+                            <Image source={ele.img2} style={styles.icon} />
+                            <Text style={styles.cardLocation}>{ele.location}</Text>
+                        </View>
+
+                        <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+                            <Text style={styles.registerButtonText}>Register Now</Text>
+                        </TouchableOpacity>
                     </View>
+                ))}
 
-                    <View style={styles.cardDetails}>
-                        <Image source={require('../../assets/icons/date.png')} style={styles.icon} />
-                        <Text style={styles.cardDate}>March 15, 2025 10:00 AM - 3:00 PM</Text>
-                    </View>
-
-                    <View style={styles.cardDetails}>
-                        <Image source={require('../../assets/icons/loc.png')} style={styles.icon} />
-                        <Text style={styles.cardLocation}>Hi-Tech City - Hyderabad</Text>
-                    </View>
-
-                    <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-                        <Text style={styles.registerButtonText}>Register Now</Text>
-                    </TouchableOpacity>
-                </View>
-
-                
                 {isRegistered && (
                     <View style={styles.registrationCard}>
-                        <FastImage source={require('../../assets/icons/calendar1.gif')} style={styles.cardImage1} />
-                        <Text style={styles.cardTitle1}>Registration Complete</Text>
-                        <Text style={styles.cardDescription1}>
-                            Congratulations! You are registered for the event. Please find the event details on your registered email ID.
-                        </Text>
+                        <FastImage source={data[1].img2} style={styles.cardImage1} />
+                        <Text style={styles.cardTitle1}>{data[1].title1}</Text>
+                        <Text style={styles.cardDescription1}>{data[1].message}</Text>
                         <TouchableOpacity style={styles.closeButton} onPress={() => setIsRegistered(false)}>
                             <Text style={styles.closeButtonText}>Close</Text>
                         </TouchableOpacity>
                     </View>
                 )}
             </ScrollView>
-            <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} /> 
+            <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} />
         </View>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -79,7 +95,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 20,
         paddingHorizontal: 10,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     image: {
         width: 30,
@@ -134,7 +150,7 @@ const styles = StyleSheet.create({
         height: 25,
         marginRight: 10,
         tintColor: 'gray',
-        objectFit:'contain'
+        objectFit: 'contain',
     },
     cardDate: {
         fontSize: 15,
@@ -212,31 +228,4 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingVertical: 10,
-        backgroundColor: 'white',
-        borderTopWidth: 1,
-        borderColor: '#ccc',
-      },
-      footerItem: {
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      footerImage: {
-        width: 30,
-        height: 30,
-        tintColor: 'black',
-      },
-      footerLogo: {
-        width: 50,
-        height: 30,
-      },
-      footerText: {
-        color: 'black',
-        fontSize: 12,
-        marginTop: 4,
-      },
 });
-

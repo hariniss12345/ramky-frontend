@@ -93,8 +93,6 @@ export function Visits() {
     ));
   };
   
-
-
   return (
     <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
       <ScrollView style={commonStyles.scrollContent}>
