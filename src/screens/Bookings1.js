@@ -65,7 +65,7 @@ export function Bookings1() {
     <View style={styles.wrapper}>
       <Animated.View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scroll}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate('Bookings')}>
             <Image source={require('../../assets/icons/Chevron.png')} style={{ width: 30, height: 30 }} />
             <Text style={{ fontWeight: 'bold', fontSize: 20, marginLeft: 35, marginTop: -28, paddingBottom: 20 }}>Back</Text>
           </TouchableOpacity>

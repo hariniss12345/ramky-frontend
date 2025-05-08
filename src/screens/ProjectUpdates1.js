@@ -53,7 +53,7 @@ export function ProjectUpdates1() {
           </View>
         )}
 
-        {/* Other Months */}
+      
         <View style={styles.cardHeaderOnly}>
           <View style={styles.cardHeader}>
             <Text style={styles.cardTitle}>May 2024 Updates</Text>

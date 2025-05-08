@@ -10,67 +10,90 @@ export function Visits() {
   const [activeCategory, setActiveCategory] = useState('upcoming');
   const [activeTab, setActiveTab] = useState('Visits');
 
-  const renderUpcomingVisits = () => (
-    <View>
-      <View style={styles.card}>
-        <Image source={require('../../assets/icons/Frame.png')} style={{ width: 40, height: 40, objectFit: 'contain', marginTop: 15 }} />
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -40, marginLeft: 60 }}>Ramky One Karnival</Text>
-        <Text style={{ marginLeft: 60 }}>2nd Phase,4th cross,16th Main Rd...</Text>
+  const visitData = {
+    upcoming: [
+      {
+        title: 'Ramky One Karnival',
+        subtitle: '2nd Phase,4th cross,16th Main Rd...',
+        details: [
+          { label: 'Visit Date', value: '24/5/2023, Wednesday' },
+          { label: 'Visit Time', value: '11:00 AM' },
+          { label: 'CRM/Handover Person', value: 'Manoj Desai' }
+        ],
+        status: 'Scheduled'
+      }
+    ],
+    completed: [
+      {
+        title: 'Ramky One Karnival',
+        subtitle: '2nd Phase,4th cross,16th Main Rd...',
+        details: [
+          { label: 'Visit Date', value: '24/5/2023, Wednesday' },
+          { label: 'Visit Time', value: '11:00 AM' },
+          { label: 'CRM/Handover Person', value: 'Manoj Desai' }
+        ],
+        status: 'Completed'
+      }
+    ],
+    incomplete: [
+      {
+        title: 'Ramky One Karnival',
+        subtitle: '2nd Phase,4th cross,16th Main Rd...',
+        details: [
+          { label: 'Visit Date', value: '24/5/2023, Wednesday' },
+          { label: 'Visit Time', value: '11:00 AM' },
+          { label: 'CRM/Handover Person', value: 'Manoj Desai' },
+          { label: 'Cancelled on', value: '24/5/2023, Wednesday' },
+          { label: 'Remarks', value: '-' }
+        ],
+        status: 'Cancelled'
+      }
+    ]
+  };
+  
+  const renderVisits = (category) => {
+    return visitData[category]?.map((visit, index) => (
+      <View key={index} style={styles.card}>
+        <Image source={require('../../assets/icons/Frame.png')} style={{ width: 40, height: 40, marginTop: 15 }} />
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -40, marginLeft: 60 }}>{visit.title}</Text>
+        <Text style={{ marginLeft: 60 }}>{visit.subtitle}</Text>
         <Image source={require('../../assets/icons/rightarrow.png')} style={{ width: 30, height: 30, marginLeft: 290, marginTop: -43 }} />
-        <Text style={{ marginTop: 40, fontWeight: 'bold' }}>Visit Date: <Text style={{ fontWeight: 'normal' }}>24/5/2023, Wednesday</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Visit Time:<Text style={{ fontWeight: 'normal' }}>11:00 AM</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold', paddingBottom: 20 }}>CRM/Handover Person: <Text style={{ fontWeight: 'normal' }}>Manoj Desai</Text></Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Scheduled</Text>
+        
+        {visit.details.map((item, i) => (
+          <Text key={i} style={{ marginTop: 10, fontWeight: 'bold' }}>
+            {item.label}: <Text style={{ fontWeight: 'normal' }}>{item.value}</Text>
+          </Text>
+        ))}
+  
+        {visit.status === 'Scheduled' && (
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Scheduled</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+  
+        {visit.status === 'Completed' && (
+          <>
+            <TouchableOpacity style={styles.button1}>
+              <Text style={styles.buttonText}>Completed</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ borderWidth: 1, borderColor: '#007BFF', borderRadius: 20, padding: 10, marginTop: 10 }}>
+              <Text style={{ color: '#007BFF', fontWeight: 'bold' }}>Give Feedback</Text>
+            </TouchableOpacity>
+          </>
+        )}
+  
+        {visit.status === 'Cancelled' && (
+          <TouchableOpacity style={styles.button2}>
+            <Text style={styles.buttonText}>Cancelled</Text>
           </TouchableOpacity>
-        </View>
+        )}
       </View>
-    </View>
-  );
+    ));
+  };
+  
 
-  const renderCompletedVisits = () => (
-    <View>
-      <View style={styles.card}>
-        <Image source={require('../../assets/icons/Frame.png')} style={{ width: 40, height: 40, objectFit: 'contain', marginTop: 15 }} />
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -40, marginLeft: 60 }}>Ramky One Karnival</Text>
-        <Text style={{ marginLeft: 60 }}>2nd Phase,4th cross,16th Main Rd...</Text>
-        <Image source={require('../../assets/icons/rightarrow.png')} style={{ width: 30, height: 30, marginLeft: 290, marginTop: -43 }} />
-        <Text style={{ marginTop: 40, fontWeight: 'bold' }}>Visit Date: <Text style={{ fontWeight: 'normal' }}>24/5/2023, Wednesday</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Visit Time:<Text style={{ fontWeight: 'normal' }}>11:00 AM</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold', paddingBottom: 20 }}>CRM/Handover Person: <Text style={{ fontWeight: 'normal' }}>Manoj Desai</Text></Text>
-        <TouchableOpacity style={styles.button1}>
-          <Text style={styles.buttonText}>Completed</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderWidth: 1, borderColor: '#007BFF', borderRadius: 20, paddingVertical: 10, paddingHorizontal: 20, alignItems: 'center', justifyContent: 'center', margin: 10, marginTop: 20
-          }}>
-          <Text style={{ color: '#007BFF', fontWeight: 'bold' }}> Give Feedback</Text>
-        </TouchableOpacity>
-
-      </View>
-    </View>
-  );
-
-  const renderIncompleteVisits = () => (
-    <View>
-      <View style={styles.card}>
-        <Image source={require('../../assets/icons/Frame.png')} style={{ width: 40, height: 40, objectFit: 'contain', marginTop: 15 }} />
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -40, marginLeft: 60 }}>Ramky One Karnival</Text>
-        <Text style={{ marginLeft: 60 }}>2nd Phase,4th cross,16th Main Rd...</Text>
-        <Image source={require('../../assets/icons/rightarrow.png')} style={{ width: 30, height: 30, marginLeft: 290, marginTop: -43 }} />
-        <Text style={{ marginTop: 40, fontWeight: 'bold' }}>Visit Date: <Text style={{ fontWeight: 'normal' }}>24/5/2023, Wednesday</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Visit Time:<Text style={{ fontWeight: 'normal' }}>11:00 AM</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold', }}>CRM/Handover Person: <Text style={{ fontWeight: 'normal' }}>Manoj Desai</Text></Text>
-        <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Cancelled on: <Text style={{ fontWeight: 'normal' }}>24/5/2023,Wednesday</Text></Text>
-        <Text style={{ margintop: 10, fontWeight: 'bold', paddingBottom: 20 }}>Remarks: <Text style={{ fontWeight: 'normal' }}>-</Text></Text>
-        <TouchableOpacity style={styles.button2}>
-          <Text style={styles.buttonText}>Cancelled</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
@@ -86,9 +109,8 @@ export function Visits() {
           </ScrollView>
         </View>
 
-        {activeCategory === 'upcoming' && renderUpcomingVisits()}
-        {activeCategory === 'completed' && renderCompletedVisits()}
-        {activeCategory === 'incomplete' && renderIncompleteVisits()}
+        {renderVisits(activeCategory)}
+
       </ScrollView>
       <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} />
     </View>

@@ -6,7 +6,6 @@ export function Bookings3() {
   const navigation = useNavigation();
 
   const data = [
-
     {
       img: require('../../assets/icons/female.png'),
       name: 'Rekha Metha',
