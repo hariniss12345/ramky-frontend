@@ -50,7 +50,6 @@ export function ContactUs() {
           <Text style={styles.subtitle}>Need to get in touch with us</Text>
         </View>
 
-        {/* Static Card */}
         <View style={styles.card}>
           <View style={styles.row}>
             <Image source={require('../../assets/icons/Shape.png')} style={{ width: 30, height: 30,objectFit:'contain' }} />
@@ -58,7 +57,6 @@ export function ContactUs() {
           </View>
         </View>
 
-        {/* Dynamic Cards */}
         {data.map((item, index) => (
           <View key={index} style={styles.card}>
             <View style={styles.row}>

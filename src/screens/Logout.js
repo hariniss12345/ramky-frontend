@@ -1,22 +1,34 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import FastImage from 'react-native-fast-image';
 
 export function Logout() {
+  const data = [
+    {
+      img: require("../../assets/icons/logout.gif"),
+      title: 'Logout',
+      message: 'You are about to log out of your Ramky Estates account. Thank you for using our portal, and we look forward to your return.'
+    }
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <FastImage 
-          source={require("../../assets/icons/logout.gif")}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Logout</Text>
-        <Text style={styles.message}>
-          You are about to log out of your Ramky Estates account. Thank you for using our portal, and we look forward to your return.
-        </Text>
+        {data.map((item, index) => {
+          return (
+            <React.Fragment key={index}>
+              <FastImage 
+                source={item.img} 
+                style={styles.image} 
+              />
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.message}>{item.message}</Text>
+            </React.Fragment>
+          );
+        })}
 
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={[styles.button, styles.cancelButton]}>
+          <TouchableOpacity style={[styles.button, styles.cancelButton]} on> 
             <Text style={styles.cancelText}>No</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.logoutButton]}>
