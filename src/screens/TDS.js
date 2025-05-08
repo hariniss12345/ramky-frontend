@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import Header from '../ReusableComponents/Header';
+import { commonStyles } from '../Global/commonStyles';
+import { useNavigation } from "@react-navigation/native";
+
 
 export function TDS() {
+    const navigation = useNavigation();
     return (
         <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
-            <ScrollView>
-                <View style={styles.imageContainer}>
-                    <Image source={require('../../assets/images/main_logo.png')} style={{width:59,height:48}}/>
-                    <Image source={require('../../assets/icons/Alert.png')} style={[styles.icon,{marginLeft:90}]} />
-                    <Image source={require('../../assets/icons/Search.png')} style={styles.icon} />
-                    <Image source={require('../../assets/icons/Line.png')} style={styles.icon} />
-                </View>
+            <ScrollView style={commonStyles.scrollContent}>
+                <Header navigation={navigation} />
 
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>How to pay TDS through Challan 26QB online?</Text>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#white',
         paddingVertical: 15,
         paddingHorizontal: 10,
-        backgroundColor:'white',
+        backgroundColor: 'white',
         marginBottom: 25,
     },
     headerText: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         marginLeft: 10,
-        tintColor:'black'
+        tintColor: 'black'
     },
     card: {
         backgroundColor: '#fff',

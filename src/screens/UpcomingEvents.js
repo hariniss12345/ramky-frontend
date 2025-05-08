@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import FastImage from "react-native-fast-image";
 import { useNavigation } from "@react-navigation/native";
+import Header from '../ReusableComponents/Header';
+import Footer from '../ReusableComponents/Footer';
+import { commonStyles } from '../Global/commonStyles';
 
 export function UpcomingEvents() {
     const [isRegistered, setIsRegistered] = useState(false);
@@ -14,32 +17,17 @@ export function UpcomingEvents() {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
-            <ScrollView>
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={require('../../assets/images/main_logo.png')}
-                        style={{ width: 59, height: 48, marginLeft: 10 }}
-                    />
-                    <Image source={require('../../assets/icons/Alert.png')} style={[styles.image,{marginLeft:110}]} />
-                    <Image source={require('../../assets/icons/Search.png')} style={styles.image} />
-                    <TouchableOpacity onPress={() => navigation.navigate('Side Bar')}>
-                        <Image source={require('../../assets/icons/Line.png')} style={styles.image} />
-                    </TouchableOpacity>
-            
-                </View>
-
-                <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -30, marginBottom: 30,marginLeft:10}}>
+             <ScrollView style={commonStyles.scrollContent}>
+                <Header navigation={navigation} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20, marginBottom: 30,marginLeft:10}}>
                     Upcoming Events
                 </Text>
-
-                {/* Event Card */}
                 <View style={styles.card}>
                     <View style={styles.cardContent}>
                         <Image source={require('../../assets/images/image.png')} style={styles.cardImage} />
                         <View style={styles.cardTextContainer}>
                             <Text style={styles.cardTitle}>Real Estate Summit...</Text>
-                            <Text style={styles.cardDescription}>Join top industry experts for</Text>
-                            <Text style={styles.cardDescription}>insights on the latest trends.</Text>
+                            <Text style={styles.cardDescription}>Join top industry experts for insights on the latest trends.</Text>
                         </View>
                     </View>
 
@@ -72,74 +60,7 @@ export function UpcomingEvents() {
                     </View>
                 )}
             </ScrollView>
-
-            <View style={styles.footer}>
-                    <TouchableOpacity
-                      style={styles.footerItem}
-                      onPress={() => {
-                        setActiveTab('Bookings');
-                        navigation.navigate('Bookings');
-                      }}>
-                      <Image
-                        source={require('../../assets/icons/homemore.png')}
-                        style={styles.footerImage}
-                      />
-                      <Text style={styles.footerText}>Bookings</Text>
-                    </TouchableOpacity>
-            
-                    <TouchableOpacity
-                      style={styles.footerItem}
-                      onPress={() => {
-                        setActiveTab('Project');
-                        navigation.navigate('Project Updates');
-                      }}>
-                      <Image
-                        source={require('../../assets/icons/checkmark.png')}
-                        style={styles.footerImage}
-                      />
-                      <Text style={styles.footerText}>Projects</Text>
-                    </TouchableOpacity>
-            
-                    <TouchableOpacity
-                      style={styles.footerItem}
-                      onPress={() => {
-                        setActiveTab('Home');
-                        navigation.navigate('Home');
-                      }}>
-                      <Image
-                        source={require('../../assets/images/main_logo.png')}
-                        style={styles.footerLogo}
-                      />
-                      <Text style={styles.footerText}>Home</Text>
-                    </TouchableOpacity>
-            
-                    <TouchableOpacity
-                      style={styles.footerItem}
-                      onPress={() => {
-                        setActiveTab('Visits');
-                        navigation.navigate('Visits');
-                      }}>
-                      <Image
-                        source={require('../../assets/icons/Location.png')}
-                        style={styles.footerImage}
-                      />
-                      <Text style={styles.footerText}>Visits</Text>
-                    </TouchableOpacity>
-            
-                    <TouchableOpacity
-                      style={styles.footerItem}
-                      onPress={() => {
-                        setActiveTab('Events');
-                        navigation.navigate('Upcoming Events');
-                      }}>
-                      <Image
-                        source={require('../../assets/icons/star.png')}
-                        style={styles.footerImage}
-                      />
-                      <Text style={styles.footerText}>Events</Text>
-                    </TouchableOpacity>
-                  </View>
-            
+            <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} /> 
         </View>
     );
 }

@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import FastImage from "react-native-fast-image";
+import Header from '../ReusableComponents/Header';
+import Footer from '../ReusableComponents/Footer';
+import { commonStyles } from '../Global/commonStyles';
+
+
 
 export function Support() {
+    const [activeTab, setActiveTab] = useState('');
     const navigation = useNavigation();
     const [rating, setRating] = useState(0);
     const [showRatingCard, setShowRatingCard] = useState(false);
-    const [submitted, setSubmitted] = useState(false);  // To track if form is submitted
+    const [submitted, setSubmitted] = useState(false);
 
     const handleAddRequest = () => {
         navigation.navigate('Form Page');
@@ -19,7 +25,7 @@ export function Support() {
 
     const handleSubmit = () => {
         setShowRatingCard(false);
-        setSubmitted(true);  // Show Thank You message on form submission
+        setSubmitted(true);
     };
 
     const renderRatingCard = () => (
@@ -29,7 +35,7 @@ export function Support() {
                     <TouchableOpacity onPress={() => setShowRatingCard(false)}>
                         <Image
                             source={require('../../assets/icons/close.png')}
-                            style={styles.closeImage}  
+                            style={styles.closeImage}
                         />
                     </TouchableOpacity>
                 </View>
@@ -60,7 +66,7 @@ export function Support() {
             <View style={styles.thankYouCard}>
                 <FastImage
                     source={require('../../assets/icons/thumb.gif')}
-                    style={{width:80,height:80}}
+                    style={{ width: 80, height: 80 }}
                 />
                 <Text style={styles.thankYouText}>Thank you for rating us!</Text>
                 <Text style={styles.thankYouMessage}>We appreciate you taking the time to share your thoughts.</Text>
@@ -73,26 +79,14 @@ export function Support() {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
-            <ScrollView contentContainerStyle={styles.container}>
-                {/* Header */}
-                <View style={styles.imageContainer}>
-                    <Image source={require('../../assets/images/main_logo.png')} style={{ width: 40, height: 40, marginLeft: 10 }} />
-                    <View style={styles.iconGroup}>
-                        <Image source={require('../../assets/icons/Alert.png')} style={styles.icon} />
-                        <Image source={require('../../assets/icons/Search.png')} style={styles.icon} />
-                        <Image source={require('../../assets/icons/Line.png')} style={styles.icon} />
-                    </View>
-                </View>
-
+            <ScrollView style={commonStyles.scrollContent}>
+                <Header navigation={navigation} />
                 <Text style={styles.pageTitle}>Support</Text>
-
-                {/* Month Card */}
                 <View style={styles.monthCard}>
                     <Image source={require('../../assets/icons/Shape.png')} style={styles.monthIcon} />
                     <Text style={styles.monthText}>This Month</Text>
                 </View>
 
-                {/* First Request Card */}
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
                         <Image source={require('../../assets/icons/file2.png')} style={styles.cardIcon} />
@@ -109,7 +103,6 @@ export function Support() {
                     </TouchableOpacity>
                 </View>
 
-                {/* Second Request Card */}
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
                         <Image source={require('../../assets/icons/file2.png')} style={styles.cardIcon} />
@@ -123,18 +116,19 @@ export function Support() {
                     <Text style={{ marginTop: 10 }}>Created Date: 25/5/2025</Text>
                 </View>
 
-                {/* Add Button */}
+
                 <View style={styles.addIconContainer}>
                     <TouchableOpacity onPress={handleAddRequest}>
                         <Text style={styles.submitButton1}>Raise a request</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+            <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} />
 
-            {/* Rating Modal Card */}
+
             {showRatingCard && renderRatingCard()}
 
-            {/* Thank You Message */}
+
             {submitted && renderThankYouCard()}
         </View>
     );
@@ -253,8 +247,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderColor: '#007ACC',
         borderWidth: 1,
-        paddingLeft:100,
-        paddingRight:100
+        paddingLeft: 100,
+        paddingRight: 100
     },
     rateButtonText: {
         color: '#007ACC',
@@ -283,7 +277,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,
-        marginTop:50
+        marginTop: 50
     },
     starsContainer: {
         flexDirection: 'row',
@@ -309,14 +303,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 40,
         borderRadius: 25,
-        color:'white',
-        paddingLeft:80,
-        paddingRight:80,
+        color: 'white',
+        paddingLeft: 80,
+        paddingRight: 80,
         marginRight: 30,
-        paddingTop:10,
-        paddingBottom:10
-    
-        
+        paddingTop: 10,
+        paddingBottom: 10
+
+
     },
     submitButtonText: {
         color: 'white',
@@ -356,10 +350,10 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 25,
-        borderColor:'#007ACC',
-        borderWidth:1,
-        paddingLeft:50,
-        paddingRight:50
+        borderColor: '#007ACC',
+        borderWidth: 1,
+        paddingLeft: 50,
+        paddingRight: 50
     },
     closeButtonText: {
         color: '#007ACC',

@@ -14,7 +14,7 @@ export function ProjectUpdates() {
   };
 
   const data = [
-    { 
+    {
       title: "Ramky One Odyssey",
       subtitle: "Ramky One Odyssey is an",
       description: "exclusive edifice of 36 floors de...",

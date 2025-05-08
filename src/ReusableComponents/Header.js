@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/images/main_logo.png')} style={styles.logo} />
-      <Image source={require('../../assets/icons/Alert.png')} style={styles.icon} />
+      <Image source={require('../../assets/icons/Alert.png')} style={[styles.icon,{marginLeft:90}]} />
       <Image source={require('../../assets/icons/Search.png')} style={styles.icon} />
       <TouchableOpacity onPress={() => navigation.navigate('Side Bar')}>
         <Image source={require('../../assets/icons/Line.png')} style={styles.icon} />
@@ -27,5 +27,5 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   logo: { width: 59, height: 48 },
-  icon: { width: 30, height: 30, tintColor: 'black' },
+  icon: { width: 30, height: 30, tintColor: 'black'},
 });

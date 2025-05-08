@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   View,
   Text,
@@ -9,29 +9,19 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import Header from '../ReusableComponents/Header';
+import Footer from '../ReusableComponents/Footer';
+import { commonStyles } from '../Global/commonStyles';
+import { useNavigation } from "@react-navigation/native";
 
 export function Profile() {
+  const navigation = useNavigation();
+  const [activeTab,setActiveTab] = useState('');
+
   return (
     <View style={{ flex: 1, backgroundColor: '#e6f0f5' }}>
-    <ScrollView>
-      <View style={styles.imageContainer}>
-        <Image source={require('../../assets/images/main_logo.png')} style={{width:40,height:40,marginLeft:10}}/>
-        <View style={styles.iconGroup}>
-          <Image
-            source={require("../../assets/icons/Alert.png")}
-            style={styles.image}
-          />
-          <Image
-            source={require("../../assets/icons/Search.png")}
-            style={styles.image}
-          />
-          <Image 
-            source={require('../../assets/icons/Line.png')}
-            style={styles.image}
-          />
-        </View>
-      </View>
-
+         <ScrollView style={commonStyles.scrollContent}>
+              <Header navigation={navigation} />
       <View style={styles.centerContent}>
         <Image
           source={require("../../assets/icons/person3.png")}
@@ -75,6 +65,7 @@ export function Profile() {
  
       </View>
     </ScrollView>
+    <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} /> 
     </View>
   );
 }

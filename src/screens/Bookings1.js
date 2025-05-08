@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { act, useState } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { commonStyles } from '../Global/commonStyles';
 
 export function Bookings1() {
   const [showOverlay, setShowOverlay] = useState(false);
@@ -46,7 +47,18 @@ export function Bookings1() {
   };
 
   const data = [
-    {}
+    {
+      applicant: 'First Applicant',
+      name: 'Ayush Metha',
+      img1: require('../../assets/icons/ArrowRight.png'),
+      img2: require('../../assets/icons/blue.png')
+    },
+    {
+      applicant: 'Second Application',
+      name: 'Rekha Metha',
+      img1: require('../../assets/icons/ArrowRight.png'),
+      img2: require('../../assets/icons/orange.png')
+    }
   ]
 
   return (
@@ -55,38 +67,36 @@ export function Bookings1() {
         <ScrollView contentContainerStyle={styles.scroll}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={require('../../assets/icons/Chevron.png')} style={{ width: 30, height: 30 }} />
-            <Text style={{ fontWeight: 'bold', fontSize: 20, marginLeft: 35, marginTop: -28,paddingBottom: 20 }}>Back</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 20, marginLeft: 35, marginTop: -28, paddingBottom: 20 }}>Back</Text>
           </TouchableOpacity>
 
           <Text style={styles.title}>Ramky One Odyssey</Text>
           <Text style={styles.label}>Booking ID: 0090</Text>
 
-          <View style={styles.card}>
-            <Text style={{ fontWeight: 'bold' }}>First Applicant</Text>
-            <Text>Ayush Mehta</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('Bookings3')}>
+          {data.map((ele, index) => (
+            <View key={index} style={commonStyles.card}>
+              <Text style={{ fontWeight: 'bold' }}>{ele.applicant}</Text>
+              <Text>{ele.name}</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  index === 0
+                    ? navigation.navigate('Bookings2')
+                    : navigation.navigate('Bookings3')
+                }>
                 <Text style={styles.view}>View Details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Bookings4')}>
-               <Image source={require('../../assets/icons/ArrowRight.png')} style={styles.arrow} />
-            </TouchableOpacity>
-            <Image source={require('../../assets/icons/blue.png')} style={styles.statusIcon} />
-          </View>
+              </TouchableOpacity>
 
-      
-          <View style={styles.card}>
-            <Text style={{ fontWeight: 'bold' }}>Second Applicant</Text>
-            <Text>Rekha Mehta</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('Bookings4')}>
-                <Text style={styles.view}>View Details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Bookings4')}>
-               <Image source={require('../../assets/icons/ArrowRight.png')} style={styles.arrow} />
-            </TouchableOpacity>
-            <Image source={require('../../assets/icons/orange.png')} style={styles.statusIcon} />
-          </View>
+              <TouchableOpacity
+                onPress={() =>
+                  index === 0
+                    ? navigation.navigate('Bookings2')
+                    : navigation.navigate('Bookings3')}>
+                <Image source={ele.img1} style={styles.arrow} />
+              </TouchableOpacity>
+              <Image source={ele.img2} style={styles.statusIcon} />
+            </View>
+          ))}
 
-          
           <View style={styles.sectionsContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <TouchableOpacity onPress={() => toggleSection('booking')} style={styles.section}>
@@ -101,39 +111,36 @@ export function Bookings1() {
             </ScrollView>
           </View>
 
-         
           {activeSection === 'booking' && (
             <View style={styles.card}>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Booking Date: </Text>
-              <Text style={{fontWeight:'normal'}}>12/06/2024</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Flat/Villa:</Text>
-              <Text style={{fontWeight:'normal'}}>Flat</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Tower/Block/Villa: </Text>
-              <Text style={{fontWeight:'normal'}}>Block A</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Unit Type: </Text>
-              <Text style={{fontWeight:'normal'}}>2BHK</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Unit Number: </Text>
-              <Text style={{fontWeight:'normal'}}>801</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Square Feet: </Text>
-              <Text style={{fontWeight:'normal'}}>1235</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>No. of car parks:  </Text>
-              <Text style={{fontWeight:'normal'}}>2</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Property Value (GST Ex.):</Text>
-              <Text style={{fontWeight:'normal'}}>2,11,69,460.00</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Other Charges (GST Ex.):</Text>
-              <Text style={{fontWeight:'normal'}}>-</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Maintenance (GST Ex.):</Text>
-              <Text style={{fontWeight:'normal'}}>-</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Corpus Fund (GST Ex.):</Text>
-              <Text style={{fontWeight:'normal'}}>-</Text>
-              <Text style={{fontSize:16,fontWeight:'bold'}}>Legal & Documentation Charges:</Text>
-              <Text style={{fontWeight:'normal'}}>-</Text>
+              {[
+                { label: 'Booking Date:', value: '12/06/2024' },
+                { label: 'Flat/Villa:', value: 'Flat' },
+                { label: 'Tower/Block/Villa:', value: 'Block A' },
+                { label: 'Unit Type:', value: '2BHK' },
+                { label: 'Unit Number:', value: '801' },
+                { label: 'Square Feet:', value: '1235' },
+                { label: 'No. of car parks:', value: '2' },
+                { label: 'Property Value (GST Ex.):', value: '2,11,69,460.00' },
+                { label: 'Other Charges (GST Ex.):', value: '-' },
+                { label: 'Maintenance (GST Ex.):', value: '-' },
+                { label: 'Corpus Fund (GST Ex.):', value: '-' },
+                { label: 'Legal & Documentation Charges:', value: '-' },
+              ].map((item, idx) => (
+                <View key={idx} style={{ marginBottom: 5 }}>
+                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.label}</Text>
+                  <Text style={{ fontWeight: 'normal' }}>{item.value}</Text>
+                </View>
+              ))}
             </View>
           )}
 
+
+
+
           {activeSection === 'document' && (
-            <View style={styles.card}>
-              {['Booking Form', 'Invoice Copy', 'Agreement of Sale', 'Sale Deed', 'Sale Deed Acknowledge','Handover & Possession Letter'].map((doc, index) => (
+            <View style={commonStyles.card}>
+              {['Booking Form', 'Invoice Copy', 'Agreement of Sale', 'Sale Deed', 'Sale Deed Acknowledge', 'Handover & Possession Letter'].map((doc, index) => (
                 <View key={index} style={styles.cardContainer}>
                   <View style={styles.docCard}>
                     <Text style={styles.docLabel}>{doc}</Text>
@@ -148,6 +155,7 @@ export function Bookings1() {
               ))}
             </View>
           )}
+
 
           {/* Payment Plan */}
           {activeSection === 'payment' && (
@@ -170,10 +178,10 @@ export function Bookings1() {
                 </View>
               </View>
 
-            
+
               <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.iconButton}>
-                  <Image source={require('../../assets/icons/Shape.png')} style={[styles.buttonIcon,{objectFit:'contain'}]} />
+                  <Image source={require('../../assets/icons/Shape.png')} style={[styles.buttonIcon, { objectFit: 'contain' }]} />
                   <Text style={styles.buttonText}>All</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconButton}>
@@ -182,7 +190,7 @@ export function Bookings1() {
                 </TouchableOpacity>
               </View>
 
-          
+
               <View style={styles.paymentCardsContainer}>
                 {[
                   { title: 'Booking Amount', receipt: 'RM001', status: 'Paid', amount: '5,66,255', dueDate: '25/06/2025', paymentDate: '25/06/2025', unpaid: '0' },
@@ -199,8 +207,8 @@ export function Bookings1() {
                     <Text>Due Date: {item.dueDate}</Text>
                     <Text>Payment Date: {item.paymentDate}</Text>
                     <Text>Unpaid Amount: ₹{item.unpaid}</Text>
-                    <Image source={require('../../assets/icons/eyeBox.png')} style={{width:30,height:30,marginTop:10}}/>
-                    <Image source={require('../../assets/icons/download.png')} style={{width:30,height:30,marginLeft:40,marginTop:-30}}/>
+                    <Image source={require('../../assets/icons/eyeBox.png')} style={{ width: 30, height: 30, marginTop: 10 }} />
+                    <Image source={require('../../assets/icons/download.png')} style={{ width: 30, height: 30, marginLeft: 40, marginTop: -30 }} />
                   </View>
                 ))}
               </View>
@@ -232,22 +240,10 @@ export function Bookings1() {
 const styles = StyleSheet.create({
   wrapper: { flex: 1, backgroundColor: '#fff' },
   container: { flex: 1, padding: 16 },
-  scroll: { paddingBottom: 50 },
   title: { fontSize: 24, fontWeight: 'bold', marginVertical: 10 },
-  label: { fontSize: 16, color: '#555',paddingBottom:20 },
-  card: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
-    marginVertical: 8,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  view: { color: '#007ACC', marginTop: 30,fontSize:15},
-  arrow: {width: 20, height: 20,marginLeft:90,marginTop:-20 },
+  label: { fontSize: 16, color: '#555', paddingBottom: 20 },
+  view: { color: '#007ACC', marginTop: 30, fontSize: 15 },
+  arrow: { width: 20, height: 20, marginLeft: 90, marginTop: -20 },
   statusIcon: { width: 50, height: 50, position: 'absolute', right: 10, bottom: 10 },
   sectionsContainer: { flexDirection: 'row', marginVertical: 12 },
   section: { marginRight: 16 },

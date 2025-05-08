@@ -14,7 +14,6 @@ import { Bookings } from './src/screens/Bookings'
 import { Bookings1  } from './src/screens/Bookings1';
 import { Bookings2 } from './src/screens/Bookings2';
 import { Bookings3 } from './src/screens/Bookings3';
-import { Bookings4 } from './src/screens/Bookings4';
 import { ProjectUpdates } from './src/screens/ProjectUpdates';
 import { ProjectUpdates1 } from './src/screens/ProjectUpdates1';
 import { Visits } from './src/screens/Visits';
@@ -49,9 +48,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
         <Stack.Screen name="Bookings" component={Bookings} options={{headerShown: false}}/>
         <Stack.Screen name="Bookings1" component={Bookings1} options={{headerShown: false}}/>
-        <Stack.Screen name="Bookings2" component={Bookings2} options={{headerShown: false}}/>
+        <Stack.Screen name="Bookings2" component={Bookings2} options={{headerShown: false}}/> 
         <Stack.Screen name="Bookings3" component={Bookings3} options={{headerShown:false}}/>
-        <Stack.Screen name="Bookings4" component={Bookings4} options={{headerShown:false}}/>
         <Stack.Screen name="Project Updates" component={ProjectUpdates} options={{headerShown:false}}/>
         <Stack.Screen name="Project Updates1" component={ProjectUpdates1} options={{headerShown:false}}/>
         <Stack.Screen name="Visits" component={Visits} options={{headerShown:false}}/>

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity,ScrollView} from "react-native";
+import Header from '../ReusableComponents/Header';
+import Footer from '../ReusableComponents/Footer';
+import { commonStyles } from '../Global/commonStyles';
+import { useNavigation } from "@react-navigation/native";
 
 export function FAQ() {
-
+  const navigation = useNavigation();
+  const [activeTab,setActiveTab] = useState('')
   const [activeQuestion, setActiveQuestion] = useState(null);
 
   const toggleAnswer = (questionIndex) => {
@@ -11,13 +16,8 @@ export function FAQ() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={require('../../assets/images/main_logo.png')} style={{ width: 40, height: 40 }} />
-        <Image source={require('../../assets/icons/Alert.png')} style={styles.icon} />
-        <Image source={require('../../assets/icons/Search.png')} style={styles.icon} />
-        <Image source={require('../../assets/icons/Line.png')} style={styles.icon} />
-      </View>
-
+      <ScrollView style={commonStyles.scrollContent}>
+        <Header navigation={navigation} />
       <Text style={{ fontSize: 24, marginLeft: 10, marginBottom: 20 }}>FAQ'S</Text>
 
       <View style={styles.tabRow}>
@@ -63,6 +63,8 @@ export function FAQ() {
           </View>
         )}
       </View>
+      </ScrollView>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} />  
     </View>
   );
 }

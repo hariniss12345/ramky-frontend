@@ -1,4 +1,4 @@
-import React from "react";
+import React,{use, useState} from "react";
 import {
   View,
   Text,
@@ -7,29 +7,17 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import Header from '../ReusableComponents/Header';
+import Footer from '../ReusableComponents/Footer';
+import { commonStyles } from '../Global/commonStyles';
 
 export function Referrals({ navigation }) {
-  return (
-    <ScrollView>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../../assets/images/main_logo.png")}
-          style={{ width: 30, height: 30 }}
-        />
-        <Image
-          source={require("../../assets/icons/Alert.png")}
-          style={styles.image}
-        />
-        <Image
-          source={require("../../assets/icons/Search.png")}
-          style={styles.image}
-        />
-        <Image
-          source={require("../../assets/icons/Line.png")}
-          style={styles.image}
-        />
-      </View>
+  const [activeTab,setActiveTab] = useState('');
 
+  return (
+    <View style={{flex:1}}>
+    <ScrollView style={commonStyles.scrollContent}>
+      <Header navigation={navigation} />
       <Text style={styles.title}>Referrals</Text>
 
       <View style={styles.card}>
@@ -81,6 +69,8 @@ export function Referrals({ navigation }) {
         </TouchableOpacity>
       </View>
     </ScrollView>
+    <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} />
+    </View>
   );
 }
 

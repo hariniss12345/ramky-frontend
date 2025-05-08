@@ -1,28 +1,24 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import Header from '../ReusableComponents/Header';
+import Footer from '../ReusableComponents/Footer';
+import { commonStyles } from '../Global/commonStyles';
 
-export function ContactUs({ navigation }) {
+export function ContactUs() {
+  const navigation = useNavigation();
+  const [activeTab,setActiveTab] = useState('');
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-
-        {/* Header Icons */}
-        <View style={styles.imageContainer}>
-          <Image source={require('../../assets/images/main_logo.png')} style={styles.image} />
-          <Image source={require('../../assets/icons/Alert.png')} style={styles.imageSmall} />
-          <Image source={require('../../assets/icons/Search.png')} style={styles.imageSmall} />
-          <TouchableOpacity onPress={() => navigation.navigate('Side Bar')}>
-            <Image source={require('../../assets/icons/Line.png')} style={styles.imageSmall} />
-          </TouchableOpacity>
-        </View>
-
-        {/* Heading */}
+       <ScrollView style={commonStyles.scrollContent}>
+              <Header navigation={navigation} />
         <View style={styles.heading}>
           <Text style={styles.title}>Contact Us</Text>
           <Text style={styles.subtitle}>Need to get in touch with us</Text>
         </View>
 
-        {/* Cards */}
+  
         <View style={styles.card}>
           <View style={styles.row}>
             <Image source={require('../../assets/icons/Shape.png')} style={{width:30,height:30,objectFit:'contain'}} />
@@ -77,8 +73,8 @@ export function ContactUs({ navigation }) {
             <Image source={require('../../assets/icons/ArrowRight.png')} style={{width:30,height:30,objectFit:'contain',marginRight:100}} />
           </View>
         </View>
-
       </ScrollView>
+      <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} /> 
     </View>
   );
 }
