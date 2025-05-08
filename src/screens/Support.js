@@ -6,8 +6,6 @@ import Header from '../ReusableComponents/Header';
 import Footer from '../ReusableComponents/Footer';
 import { commonStyles } from '../Global/commonStyles';
 
-
-
 export function Support() {
     const [activeTab, setActiveTab] = useState('');
     const navigation = useNavigation();
@@ -28,15 +26,31 @@ export function Support() {
         setSubmitted(true);
     };
 
+    const data = [
+        {
+            img: require('../../assets/icons/file2.png'),
+            title: 'Maintenance',
+            caseId: { label: 'Case ID', value: '0090' },
+            description: { label: 'Description', value: 'Garbage not being disposed properly in the B-block' },
+            date: '25/5/2025',
+            status: 'Resolved',
+        },
+        {
+            img: require('../../assets/icons/file2.png'),
+            title: 'Failure',
+            caseId: { label: 'Case ID', value: '0091' },
+            description: { label: 'Description', value: 'Street lights are not working in the A-block' },
+            date: '25/5/2025',
+            status: 'Pending',
+        }
+    ];
+
     const renderRatingCard = () => (
         <View style={styles.overlay}>
             <View style={styles.ratingCard}>
                 <View style={styles.closeContainer}>
                     <TouchableOpacity onPress={() => setShowRatingCard(false)}>
-                        <Image
-                            source={require('../../assets/icons/close.png')}
-                            style={styles.closeImage}
-                        />
+                        <Image source={require('../../assets/icons/close.png')} style={styles.closeImage} />
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.ratingTitle}>Rate Us</Text>
@@ -45,16 +59,11 @@ export function Support() {
                 <View style={styles.starsContainer}>
                     {[1, 2, 3, 4, 5].map((star) => (
                         <TouchableOpacity key={star} onPress={() => handleStarPress(star)}>
-                            <Text style={[styles.star, rating >= star && styles.filledStar]}>
-                                ★
-                            </Text>
+                            <Text style={[styles.star, rating >= star && styles.filledStar]}>★</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
-                <TouchableOpacity
-                    style={styles.submitButton}
-                    onPress={handleSubmit}  // Submit form and show Thank You message
-                >
+                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
                     <Text style={styles.submitButtonText}>Submit</Text>
                 </TouchableOpacity>
             </View>
@@ -64,10 +73,7 @@ export function Support() {
     const renderThankYouCard = () => (
         <View style={styles.overlay}>
             <View style={styles.thankYouCard}>
-                <FastImage
-                    source={require('../../assets/icons/thumb.gif')}
-                    style={{ width: 80, height: 80 }}
-                />
+                <FastImage source={require('../../assets/icons/thumb.gif')} style={{ width: 80, height: 80 }} />
                 <Text style={styles.thankYouText}>Thank you for rating us!</Text>
                 <Text style={styles.thankYouMessage}>We appreciate you taking the time to share your thoughts.</Text>
                 <TouchableOpacity style={styles.closeButton} onPress={() => setSubmitted(false)}>
@@ -87,35 +93,35 @@ export function Support() {
                     <Text style={styles.monthText}>This Month</Text>
                 </View>
 
-                <View style={styles.card}>
-                    <View style={styles.cardHeader}>
-                        <Image source={require('../../assets/icons/file2.png')} style={styles.cardIcon} />
-                        <Text style={styles.cardTitle}>Maintenance</Text>
-                        <TouchableOpacity style={[styles.statusButton, styles.resolved]}>
-                            <Text style={styles.statusText}>Resolved</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={{ marginLeft: 75, marginTop: -20 }}>Case ID: 0090</Text>
-                    <Text style={{ marginTop: 40 }}>Description: Garbage not being disposed properly in the B-block</Text>
-                    <Text style={{ marginTop: 10 }}>Created Date: 25/5/2025</Text>
-                    <TouchableOpacity style={styles.rateButton} onPress={() => setShowRatingCard(true)}>
-                        <Text style={styles.rateButtonText}>Rate Us</Text>
-                    </TouchableOpacity>
-                </View>
+                {data.map((item, index) => (
+                    <View key={index} style={styles.card}>
+                        <View style={styles.cardHeader}>
+                            <Image source={item.img} style={styles.cardIcon} />
+                            <Text style={styles.cardTitle}>{item.title}</Text>
+                            <TouchableOpacity
+                                style={[
+                                    item.status === 'Resolved' ? styles.resolved : styles.pending,
+                                    styles.statusButton
+                                ]}
+                            >
+                                <Text style={styles.statusText}>{item.status}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={{ marginLeft: 75, marginTop: -20 }}>
+                            {item.caseId.label}: {item.caseId.value}
+                        </Text>
+                        <Text style={{ marginTop: 40 }}>
+                            {item.description.label}: {item.description.value}
+                        </Text>
+                        <Text style={{ marginTop: 10 }}>Created Date: {item.date}</Text>
 
-                <View style={styles.card}>
-                    <View style={styles.cardHeader}>
-                        <Image source={require('../../assets/icons/file2.png')} style={styles.cardIcon} />
-                        <Text style={styles.cardTitle}>Failure</Text>
-                        <TouchableOpacity style={[styles.statusButton1, styles.pending]}>
-                            <Text style={styles.statusText}>Pending</Text>
-                        </TouchableOpacity>
+                        {item.status === 'Resolved' && (
+                            <TouchableOpacity style={styles.rateButton} onPress={() => setShowRatingCard(true)}>
+                                <Text style={styles.rateButtonText}>Rate Us</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
-                    <Text style={{ marginLeft: 75, marginTop: -20 }}>Case ID: 0091</Text>
-                    <Text style={{ marginTop: 40 }}>Description: Street lights are not working in the A-block</Text>
-                    <Text style={{ marginTop: 10 }}>Created Date: 25/5/2025</Text>
-                </View>
-
+                ))}
 
                 <View style={styles.addIconContainer}>
                     <TouchableOpacity onPress={handleAddRequest}>
@@ -123,39 +129,16 @@ export function Support() {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+
             <Footer activeTab={activeTab} setActiveTab={setActiveTab} navigation={navigation} />
 
-
             {showRatingCard && renderRatingCard()}
-
-
             {submitted && renderThankYouCard()}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingBottom: 80,
-    },
-    imageContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingVertical: 10,
-        paddingHorizontal: 16,
-        backgroundColor: 'white'
-    },
-    iconGroup: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    icon: {
-        width: 24,
-        height: 24,
-        marginLeft: 30,
-        tintColor: 'black'
-    },
     pageTitle: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -208,16 +191,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderRadius: 50,
         alignSelf: 'flex-start',
-        marginLeft: 35,
-        marginTop: 20
-    },
-    statusButton1: {
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-        borderRadius: 50,
-        alignSelf: 'flex-start',
-        marginLeft: 90,
-        marginTop: 20
+        marginLeft: 'auto',
     },
     resolved: {
         backgroundColor: '#4CAF50',
@@ -229,38 +203,36 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
     },
-    addIconContainer: {
-        alignItems: "flex-end",
-        paddingHorizontal: 20,
-        marginTop: 30,
-    },
-    addIcon: {
-        width: 50,
-        height: 50,
-    },
     rateButton: {
         marginTop: 16,
-        backgroundColor: 'white',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 25,
-        alignSelf: 'center',
         borderColor: '#007ACC',
         borderWidth: 1,
-        paddingLeft: 100,
-        paddingRight: 100
+        borderRadius: 25,
+        paddingVertical: 10,
+        paddingHorizontal: 40,
+        alignSelf: 'center'
     },
     rateButtonText: {
         color: '#007ACC',
         fontWeight: 'bold',
         fontSize: 16,
     },
+    addIconContainer: {
+        alignItems: "flex-end",
+        paddingHorizontal: 20,
+        marginTop: 30,
+    },
+    submitButton1: {
+        backgroundColor: '#1976D2',
+        paddingVertical: 10,
+        paddingHorizontal: 40,
+        borderRadius: 25,
+        color: 'white',
+        marginRight: 30
+    },
     overlay: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
+        top: 0, left: 0, bottom: 0, right: 0,
         backgroundColor: 'rgba(0,0,0,0.4)',
         justifyContent: 'center',
         alignItems: 'center',
@@ -298,38 +270,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         borderRadius: 25,
     },
-    submitButton1: {
-        backgroundColor: '#1976D2',
-        paddingVertical: 10,
-        paddingHorizontal: 40,
-        borderRadius: 25,
-        color: 'white',
-        paddingLeft: 80,
-        paddingRight: 80,
-        marginRight: 30,
-        paddingTop: 10,
-        paddingBottom: 10
-
-
-    },
     submitButtonText: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 16,
-    },
-    closeContainer: {
-        position: 'absolute',
-        top: 20,
-        right: 20,
-        zIndex: 999,
-    },
-    closeImage: {
-        width: 24,
-        height: 24,
-        tintColor: 'black',
     },
     thankYouCard: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: 'white',
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
@@ -337,27 +283,33 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     thankYouText: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginTop: 10
     },
     thankYouMessage: {
-        fontSize: 15,
-        marginBottom: 20,
+        marginTop: 10,
+        fontSize: 14,
+        textAlign: 'center'
     },
     closeButton: {
-        backgroundColor: 'white',
+        marginTop: 20,
+        backgroundColor: '#007ACC',
         paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 25,
-        borderColor: '#007ACC',
-        borderWidth: 1,
-        paddingLeft: 50,
-        paddingRight: 50
+        paddingHorizontal: 30,
+        borderRadius: 25
     },
     closeButtonText: {
-        color: '#007ACC',
-        fontWeight: 'bold',
-        fontSize: 16,
+        color: 'white',
+        fontWeight: 'bold'
     },
+    closeContainer: {
+        position: 'absolute',
+        top: 10,
+        right: 10
+    },
+    closeImage: {
+        width: 20,
+        height: 20
+    }
 });
